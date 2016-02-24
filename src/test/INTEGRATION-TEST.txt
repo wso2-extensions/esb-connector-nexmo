@@ -29,20 +29,20 @@ Steps to follow in setting integration test.
 	<messageBuilder contentType="text/html" class="org.wso2.carbon.relay.BinaryRelayBuilder"/>
 
  3. Create a Nexmo trial account and derive the API Key.
-	i) 	 Using the URL "https://dashboard.nexmo.com/register" create a Nexmo account and provide a valid phone number in account verification.
-	ii)	 Login to the created Nexmo account and go to 'Api Settings' and fetch the 'Key' and 'Secret' of the API.
+	i)   Using the URL "https://dashboard.nexmo.com/register" create a Nexmo account and provide a valid phone number in account verification.
+	ii)  Login to the created Nexmo account and go to 'Api Settings' and fetch the 'Key' and 'Secret' of the API.
 
  4. Follow the below mentioned steps for adding valid certificate to access Nexmo API over https.
 
-     i)   Extract the certificate from browser(Mozilla Firefox) by navigating to https://dashboard.nexmo.com/private/dashboard
+        i)   Extract the certificate from browser(Mozilla Firefox) by navigating to https://dashboard.nexmo.com/private/dashboard
 
-     ii)  Go to new ESB 4.9.0-Alpha folder and place the downloaded certificate in "<ESB_HOME>/repository/resources/security/"
+        ii)  Go to new ESB 4.9.0-Alpha folder and place the downloaded certificate in "<ESB_HOME>/repository/resources/security/"
 
      iii) Navigate to "<ESB_HOME>/repository/resources/security/" using command prompt and execute keytool -importcert -file CERT_FILE_NAME -keystore client-truststore.jks -alias "CERT_NAME" in command line to import Nexmo certificate in to keystore.
-     		 Give "wso2carbon" as password. Press "Y" to complete certificate import process.
+     	     Give "wso2carbon" as password. Press "Y" to complete certificate import process.
 
-     		 NOTE : CERT_FILE_NAME is the file name which was extracted from Nexmo. (e.g. *.nexmo.com)
-     			    CERT_NAME is arbitrary name for the certificate. (e.g. Nexmo)
+     	     NOTE : CERT_FILE_NAME is the file name which was extracted from Nexmo. (e.g. *.nexmo.com)
+     		    CERT_NAME is arbitrary name for the certificate. (e.g. Nexmo)
 
  5. Compress modified ESB as wso2esb-4.9.0.zip and copy that zip file in to location "{NEXMO_CONNECTORS_HOME}/repository/".
 
