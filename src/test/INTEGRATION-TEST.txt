@@ -48,15 +48,15 @@ Steps to follow in setting integration test.
 
  6. Update the Nexmo properties file at location "{NEXMO_CONNECTORS_HOME}/src/test/resources/artifacts/ESB/connector/config" as below.
 	
-	i)		apiUrl 					- 	Use "https://rest.nexmo.com".
-	ii) 	apiKey					-   Use the Key retrieved in Step 3 - ii.
-	iii)	apiSecret				- 	Use the Secret retrieved in Step 3 - ii.
-	iv)		recipientPhoneNumber	- 	Use the phone number which was used in creating the account.
-	v)		message					- 	Use a valid string as the body of the message to be sent.
-	vi)		clientRef				-   Use a valid URL of a reference string for the reference (40 characters max).
-	vii)	invalidDate			   	-   Use a valid date before the date of creating the account in the format YYYY-MM-DD.
-	viii)	answerUrl			    -   Use a valid URL which contains a VoiceXML response.
-	ix)	    timeOut			    	-   Use a valid integer value as the timeout between each test case execution (recommended value is 10000).
+	i)    apiUrl 		    - 	Use "https://rest.nexmo.com".
+	ii)   apiKey		    -   Use the Key retrieved in Step 3 - ii.
+	iii)  apiSecret		    - 	Use the Secret retrieved in Step 3 - ii.
+	iv)   recipientPhoneNumber  -   Use the phone number which was used in creating the account.
+	v)    message		    - 	Use a valid string as the body of the message to be sent.
+	vi)   clientRef		    -   Use a valid URL of a reference string for the reference (40 characters max).
+	vii)  invalidDate	    -   Use a valid date before the date of creating the account in the format YYYY-MM-DD.
+	viii) answerUrl	            -   Use a valid URL which contains a VoiceXML response.
+	ix)   timeOut	            -   Use a valid integer value as the timeout between each test case execution (recommended value is 10000).
 
  7. Navigate to "{NEXMO_CONNECTORS_HOME}/" and run the following command.
        $ mvn clean install
