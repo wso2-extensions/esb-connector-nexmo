@@ -1,0 +1,11 @@
+{
+  "apiUrl": "%s(apiUrl)",
+  "apiKey": "%s(apiKey)",
+  "apiSecret": "%s(apiSecret)",
+  "messageIds": [
+    '%s(messageId)',
+    '%s(messageId2)'
+  ],
+  "responseType": "json"
+}
+

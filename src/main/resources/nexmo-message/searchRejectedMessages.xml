@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+~  Copyright (c) 2016, WSO2 Inc. (http://wso2.com) All Rights Reserved.
+~
+~  WSO2 Inc. licenses this file to you under the Apache License,
+~  Version 2.0 (the "License"); you may not use this file except
+~  in compliance with the License.
+~  You may obtain a copy of the License at
+~
+~   http://www.apache.org/licenses/LICENSE-2.0
+~
+~  Unless required by applicable law or agreed to in writing,
+~  software distributed under the License is distributed on an
+~  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+~  KIND, either express or implied.  See the License for the
+~  specific language governing permissions and limitations
+~  under the License.
+-->
+<template name="searchRejectedMessages" xmlns="http://ws.apache.org/ns/synapse">
+    <parameter name="date" description="The message submission date of the rejected messages."/>
+    <parameter name="to" description="The recipient number to which the messages got rejected."/>
+    <sequence>
+        <property name="uri.var.date" expression="$func:date"/>
+        <property name="uri.var.to" expression="$func:to"/>
+        <property name="uri.var.toParam" value=""/>
+        <!-- If the responseType type is not XML, set the default value to JSON -->
+        <filter source="get-property('uri.var.responseType')" regex="xml">
+            <then>
+                <header name="Accept" value="application/xml" scope="transport"/>
+            </then>
+            <else>
+                <header name="Accept" value="application/json" scope="transport"/>
+            </else>
+        </filter>
+        <filter source="boolean(get-property('uri.var.to'))" regex="true">
+            <property name="uri.var.toParam" expression="fn:concat('&amp;to=',get-property('uri.var.to'))"/>
+        </filter>
+        <call>
+            <endpoint>
+                <http method="get"
+                      uri-template="{uri.var.apiUrl}/search/rejections{uri.var.authParams}&amp;date={uri.var.date}{uri.var.toParam}"/>
+            </endpoint>
+        </call>
+        <!-- Remove response custom header information -->
+        <header name="Strict-Transport-Security" scope="transport" action="remove"/>
+        <header name="X-Frame-Options" scope="transport" action="remove"/>
+        <header name="X-XSS-Protection" scope="transport" action="remove"/>
+    </sequence>
+</template>
