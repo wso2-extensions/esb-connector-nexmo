@@ -70,7 +70,7 @@
         <call>
             <endpoint>
                 <http method="get"
-                      uri-template="{uri.var.apiUrl}/number/search{uri.var.authParams}&amp;country={uri.var.country}{uri.var.optParams}"/>
+                      uri-template="legacy-encoding:{uri.var.apiUrl}/number/search{uri.var.authParams}&amp;country={uri.var.country}{uri.var.optParams}"/>
             </endpoint>
         </call>
         <!-- Remove response custom header information -->

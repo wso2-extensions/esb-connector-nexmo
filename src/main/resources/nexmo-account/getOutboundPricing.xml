@@ -33,7 +33,7 @@
         <call>
             <endpoint>
                 <http method="get"
-                      uri-template="{uri.var.apiUrl}/account/get-pricing/outbound{uri.var.authParams}&amp;country={uri.var.country}"/>
+                      uri-template="legacy-encoding:{uri.var.apiUrl}/account/get-pricing/outbound{uri.var.authParams}&amp;country={uri.var.country}"/>
             </endpoint>
         </call>
         <!-- Remove custom header information in response -->

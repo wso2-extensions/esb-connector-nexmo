@@ -10,12 +10,12 @@ Pre-requisites:
 Tested Platform: 
 
  - Microsoft WINDOWS V-7
- - UBUNTU 14.04
- - WSO2 ESB 4.9.0
+ - UBUNTU 14.04, Mac OSx 10.9
+ - WSO2 ESB 4.9.0, ESB 5.0.0-BETA
 
 Steps to follow in setting integration test.
 
- 1. Download ESB 4.9.0 from official website.
+ 1. Download ESB 5.0.0-BETA from official website. Extract the ESB and put "-XX:-UseSplitVerifier" under $JVM_MEM_OPTS into {ESB_HOME}/bin/wso2server.sh.
 
  2. Deploy relevant patches, if applicable and the ESB should be configured as below.
 	Please make sure that the below mentioned Axis configurations are enabled in "<ESB_HOME>/repository/conf/axis2/axis2.xml".
@@ -36,27 +36,27 @@ Steps to follow in setting integration test.
 
         i)   Extract the certificate from browser(Mozilla Firefox) by navigating to https://dashboard.nexmo.com/private/dashboard
 
-        ii)  Go to new ESB 4.9.0-Alpha folder and place the downloaded certificate in "<ESB_HOME>/repository/resources/security/"
+        ii)  Go to new ESB 5.0.0-BETA folder and place the downloaded certificate in "<ESB_HOME>/repository/resources/security/"
 
-     iii) Navigate to "<ESB_HOME>/repository/resources/security/" using command prompt and execute keytool -importcert -file CERT_FILE_NAME -keystore client-truststore.jks -alias "CERT_NAME" in command line to import Nexmo certificate in to keystore.
+        iii) Navigate to "<ESB_HOME>/repository/resources/security/" using command prompt and execute keytool -importcert -file CERT_FILE_NAME -keystore client-truststore.jks -alias "CERT_NAME" in command line to import Nexmo certificate in to keystore.
      	     Give "wso2carbon" as password. Press "Y" to complete certificate import process.
 
      	     NOTE : CERT_FILE_NAME is the file name which was extracted from Nexmo. (e.g. *.nexmo.com)
      		    CERT_NAME is arbitrary name for the certificate. (e.g. Nexmo)
 
- 5. Compress modified ESB as wso2esb-4.9.0.zip and copy that zip file in to location "{NEXMO_CONNECTORS_HOME}/repository/".
+ 5. Compress modified ESB as wso2esb-5.0.0-BETA.zip and copy that zip file in to location "{NEXMO_CONNECTORS_HOME}/repository/".
 
  6. Update the Nexmo properties file at location "{NEXMO_CONNECTORS_HOME}/src/test/resources/artifacts/ESB/connector/config" as below.
 	
-	i)    apiUrl 		    - 	Use "https://rest.nexmo.com".
-	ii)   apiKey		    -   Use the Key retrieved in Step 3 - ii.
-	iii)  apiSecret		    - 	Use the Secret retrieved in Step 3 - ii.
-	iv)   recipientPhoneNumber  -   Use the phone number which was used in creating the account.
-	v)    message		    - 	Use a valid string as the body of the message to be sent.
-	vi)   clientRef		    -   Use a valid URL of a reference string for the reference (40 characters max).
-	vii)  invalidDate	    -   Use a valid date before the date of creating the account in the format YYYY-MM-DD.
-	viii) answerUrl	            -   Use a valid URL which contains a VoiceXML response.
-	ix)   timeOut	            -   Use a valid integer value as the timeout between each test case execution (recommended value is 10000).
+	i)    apiUrl               -   Use "https://rest.nexmo.com".
+	ii)   apiKey               -   Use the Key retrieved in Step 3 - ii.
+	iii)  apiSecret            -   Use the Secret retrieved in Step 3 - ii.
+	iv)   recipientPhoneNumber -   Use the phone number which was used in creating the account.
+	v)    message              -   Use a valid string as the body of the message to be sent.
+	vi)   clientRef            -   Use a valid URL of a reference string for the reference (40 characters max).
+	vii)  invalidDate          -   Use a valid date before the date of creating the account in the format YYYY-MM-DD.
+	viii) answerUrl            -   Use a valid URL which contains a VoiceXML response.
+	ix)   timeOut              -   Use a valid integer value as the timeout between each test case execution (recommended value is 10000).
 
  7. Navigate to "{NEXMO_CONNECTORS_HOME}/" and run the following command.
        $ mvn clean install

@@ -40,22 +40,11 @@
         <property name="uri.var.machineTimeout" expression="$func:machineTimeout"/>
         <property name="uri.var.callback" expression="$func:callback"/>
         <property name="uri.var.callbackMethod" expression="$func:callbackMethod"/>
-        <payloadFactory media-type="json">
-            <format>
-                {
-                "to":"$1",
-                "text":"$2"
-                }
-            </format>
-            <args>
-                <arg expression="get-property('uri.var.to')"/>
-                <arg expression="get-property('uri.var.text')"/>
-            </args>
-        </payloadFactory>
-        <!--Construct payload for optional parameters -->
+        <property name="uri.var.optParams" value=""/>
+        <!--Construct url parameters for optional parameters -->
         <script language="js">
             <![CDATA[
-	  		    payload = mc.getPayloadJSON();
+				var optParams = mc.getProperty('uri.var.optParams');
 				var from = mc.getProperty("uri.var.from");
                 var language = mc.getProperty("uri.var.language");
                 var voice = mc.getProperty("uri.var.voice");
@@ -64,36 +53,35 @@
                 var machineTimeout = mc.getProperty("uri.var.machineTimeout");
                 var callback = mc.getProperty("uri.var.callback");
                 var callbackMethod = mc.getProperty("uri.var.callbackMethod");
-
+                var url = mc.getProperty("uri.var.apiUrl");
                 if ( from != null && from != "") {
-                	payload.from = from ;
+                	optParams = optParams + "&from=" + from;
                 }
                 if ( language != null && language != "") {
-                	payload.lg = language;
+                    optParams = optParams + "&lg=" + language;
                 }
                 if ( voice != null && voice != "") {
-                	payload.voice = voice;
+                    optParams = optParams + "&voice=" + voice;
                 }
                 if ( repeat != null && repeat != "") {
-                	payload.repeat = repeat;
+                    optParams = optParams + "&repeat=" + repeat;
                 }
                 if ( machineDetection != null && machineDetection != "") {
-                	payload.machine_detection = machineDetection ;
+                    optParams = optParams + "&machine_detection=" + machineDetection;
                 }
                 if ( machineTimeout != null && machineTimeout != "") {
-                	payload.machine_timeout = machineTimeout;
+                    optParams = optParams + "&machine_timeout=" + machineTimeout;
                 }
                 if ( callback != null && callback != "") {
-                	payload.callback = callback;
+                	optParams = optParams + "&callback=" + callback;
                 }
                 if ( callbackMethod != null && callbackMethod != "") {
-                	payload.callback_method = callbackMethod;
+                    optParams = optParams + "&callback_method=" + callbackMethod;
                 }
-                mc.setPayloadJSON(payload);
+                mc.setProperty('uri.var.optParams', optParams);
+                mc.setProperty('host', url.replace("https://", ""));
 			]]>
         </script>
-        <property name="DISABLE_CHUNKING" value="true" scope="axis2"/>
-        <property name="messageType" value="application/x-www-form-urlencoded" scope="axis2"/>
         <!-- If the responseType type is not XML, set the default value to JSON -->
         <filter source="get-property('uri.var.responseType')" regex="xml">
             <then>
@@ -103,9 +91,12 @@
                 <property name="uri.var.apiUrl" expression="fn:concat(get-property('uri.var.apiUrl'), '/tts/json')"/>
             </else>
         </filter>
+        <header name="Content-Type" value="application/x-www-form-urlencoded" scope="transport"/>
+        <property name="POST_TO_URI" scope="axis2" value="true"/>
+        <property name="REQUEST_HOST_HEADER" expression="get-property('host')" scope="axis2"/>
         <call>
             <endpoint>
-                <http method="post" uri-template="{uri.var.apiUrl}{uri.var.authParams}"/>
+                <http method="get" uri-template="legacy-encoding:{uri.var.apiUrl}{uri.var.authParams}&amp;to={uri.var.to}&amp;text={uri.var.text}{uri.var.optParams}"/>
             </endpoint>
         </call>
         <!-- Remove custom header information in response -->

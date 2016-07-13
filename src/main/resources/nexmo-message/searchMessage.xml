@@ -32,7 +32,7 @@
         <call>
             <endpoint>
                 <http method="get"
-                      uri-template="{uri.var.apiUrl}/search/message{uri.var.authParams}&amp;id={uri.var.messageId}"/>
+                      uri-template="legacy-encoding:{uri.var.apiUrl}/search/message{uri.var.authParams}&amp;id={uri.var.messageId}"/>
             </endpoint>
         </call>
         <!-- Remove custom header information in response -->

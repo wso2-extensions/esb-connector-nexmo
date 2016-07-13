@@ -47,7 +47,7 @@
 		    		}
 		    	}
 		    	if(query != "") {
-		    		query = query.substring(0,query.length-1);
+		    		query = query.toString().substring(0,query.toString().lastIndexOf("&"));
 		    	}
 		    	mc.setProperty('uri.var.query',query);
 		    ]]>
@@ -65,7 +65,7 @@
         <call>
             <endpoint>
                 <http method="get"
-                      uri-template="{uri.var.apiUrl}/search/messages{uri.var.authParams}&amp;{uri.var.query}"/>
+                      uri-template="legacy-encoding:{uri.var.apiUrl}/search/messages{uri.var.authParams}&amp;{uri.var.query}"/>
             </endpoint>
         </call>
         <!-- Remove custom header information in response -->
