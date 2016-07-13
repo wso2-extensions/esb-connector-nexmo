@@ -38,7 +38,7 @@
         <call>
             <endpoint>
                 <http method="get"
-                      uri-template="{uri.var.apiUrl}/search/rejections{uri.var.authParams}&amp;date={uri.var.date}{uri.var.toParam}"/>
+                      uri-template="legacy-encoding:{uri.var.apiUrl}/search/rejections{uri.var.authParams}&amp;date={uri.var.date}{uri.var.toParam}"/>
             </endpoint>
         </call>
         <!-- Remove response custom header information -->

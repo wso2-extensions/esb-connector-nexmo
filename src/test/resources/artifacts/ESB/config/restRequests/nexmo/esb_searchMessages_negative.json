@@ -3,7 +3,7 @@
   "apiKey": "%s(apiKey)",
   "apiSecret": "%s(apiSecret)",
   "date": "%s(invalidDate)",
-  "to": "%s(recipientPhoneNumber)",
+  "to": "%s(invalidPhoneNumber)",
   "responseType": "json"
 }
 

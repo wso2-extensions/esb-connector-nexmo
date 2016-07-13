@@ -127,12 +127,11 @@ public class NexmoConnectorIntegrationTest extends ConnectorIntegrationTestBase 
 
         Thread.sleep(Long.parseLong(connectorProperties.getProperty("timeOut")));
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
-
         Assert.assertEquals(esbRestResponse.getBody().getInt("message-count"), 1);
-        Assert.assertEquals(esbMessagesArray.getJSONObject(0).getString("to"), apiRestResponse.getBody()
-                .getString("to"));
-        Assert.assertEquals(esbMessagesArray.getJSONObject(0).getString("message-price"), apiRestResponse.getBody()
-                .getString("price"));
+        Assert.assertEquals(esbMessagesArray.getJSONObject(0).getString("to"),
+                apiRestResponse.getBody().getString("to"));
+        Assert.assertEquals(esbMessagesArray.getJSONObject(0).getString("message-price"),
+                apiRestResponse.getBody().getString("price"));
         Assert.assertTrue(apiRestResponse.getBody().getString("body")
                 .contains(connectorProperties.getProperty("message")));
 
@@ -141,7 +140,8 @@ public class NexmoConnectorIntegrationTest extends ConnectorIntegrationTestBase 
     /**
      * Positive test case for sendMessage method with optional parameters.
      */
-    @Test(dependsOnMethods = {"testSendMessageWithMandatoryParameters"}, description = "nexmo {sendMessage} integration test with optional parameters.")
+    @Test(dependsOnMethods = {"testSendMessageWithMandatoryParameters"},
+            description = "nexmo {sendMessage} integration test with optional parameters.")
     public void testSendMessageWithOptionalParameters() throws IOException, JSONException, InterruptedException {
 
         esbRequestHeadersMap.put("Action", "urn:sendMessage");
@@ -173,7 +173,8 @@ public class NexmoConnectorIntegrationTest extends ConnectorIntegrationTestBase 
     /**
      * Negative test case for sendMessage method.
      */
-    @Test(dependsOnMethods = {"testSendMessageWithOptionalParameters"}, description = "nexmo {sendMessage} integration test with negative cases.")
+    @Test(dependsOnMethods = {"testSendMessageWithOptionalParameters"},
+            description = "nexmo {sendMessage} integration test with negative cases.")
     public void testSendMessageWithNegativeCase() throws IOException, JSONException {
 
         esbRequestHeadersMap.put("Action", "urn:sendMessage");
@@ -199,7 +200,8 @@ public class NexmoConnectorIntegrationTest extends ConnectorIntegrationTestBase 
     /**
      * Positive test case for searchMessage method with mandatory parameters.
      */
-    @Test(dependsOnMethods = {"testSendMessageWithMandatoryParameters"}, description = "nexmo {searchMessage} integration test with mandatory parameters.")
+    @Test(dependsOnMethods = {"testSendMessageWithMandatoryParameters"},
+            description = "nexmo {searchMessage} integration test with mandatory parameters.")
     public void testSearchMessageWithMandatoryParameters() throws IOException, JSONException {
 
         esbRequestHeadersMap.put("Action", "urn:searchMessage");
@@ -224,7 +226,8 @@ public class NexmoConnectorIntegrationTest extends ConnectorIntegrationTestBase 
     /**
      * Positive test case for searchMessages method with mandatory parameters.
      */
-    @Test(dependsOnMethods = {"testSendMessageWithNegativeCase"}, description = "nexmo {searchMessages} integration test with mandatory parameters.")
+    @Test(dependsOnMethods = {"testSendMessageWithNegativeCase"},
+            description = "nexmo {searchMessages} integration test with mandatory parameters.")
     public void testSearchMessagesWithMandatoryParameters() throws IOException, JSONException {
 
         esbRequestHeadersMap.put("Action", "urn:searchMessages");
@@ -261,7 +264,8 @@ public class NexmoConnectorIntegrationTest extends ConnectorIntegrationTestBase 
     /**
      * Positive test case for searchMessages method with optional parameters.
      */
-    @Test(dependsOnMethods = {"testSendMessageWithOptionalParameters"}, description = "nexmo {searchMessages} integration test with optional parameters.")
+    @Test(dependsOnMethods = {"testSendMessageWithOptionalParameters"},
+            description = "nexmo {searchMessages} integration test with optional parameters.")
     public void testSearchMessagesWithOptionalParameters() throws IOException, JSONException {
 
         esbRequestHeadersMap.put("Action", "urn:searchMessages");
@@ -309,7 +313,7 @@ public class NexmoConnectorIntegrationTest extends ConnectorIntegrationTestBase 
                         + connectorProperties.getProperty("apiKey") + "&api_secret="
                         + connectorProperties.getProperty("apiSecret") + "&date="
                         + connectorProperties.getProperty("invalidDate") + "&to="
-                        + connectorProperties.getProperty("recipientPhoneNumber");
+                        + connectorProperties.getProperty("invalidPhoneNumber");
 
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
 
@@ -363,16 +367,13 @@ public class NexmoConnectorIntegrationTest extends ConnectorIntegrationTestBase 
                 sendJsonRestRequest(proxyUrl, "POST", esbRequestHeadersMap, "esb_textToSpeech_negative.json");
 
         String apiEndPoint =
-                connectorProperties.getProperty("apiUrl") + "/tts/json?api_key="
+                connectorProperties.getProperty("apiUrlTTS") + "/tts/json?api_key="
                         + connectorProperties.getProperty("apiKey") + "&api_secret="
-                        + connectorProperties.getProperty("apiSecret");
+                        + connectorProperties.getProperty("apiSecret") + "&to=&text=";
 
         RestResponse<JSONObject> apiRestResponse =
                 sendJsonRestRequest(apiEndPoint, "POST", apiRequestHeadersMap, "api_textToSpeech_negative.json");
-
-        Assert.assertEquals(esbRestResponse.getBody().getInt("status"), apiRestResponse.getBody().getInt("status"));
-        Assert.assertEquals(esbRestResponse.getBody().getString("error-text"),
-                apiRestResponse.getBody().getString("error-text"));
+        Assert.assertEquals(esbRestResponse.getBody().toString(), apiRestResponse.getBody().toString());
     }
 
     /**
@@ -431,7 +432,8 @@ public class NexmoConnectorIntegrationTest extends ConnectorIntegrationTestBase 
     /**
      * Positive test case for searchInboundNumbers method with mandatory parameters.
      */
-    @Test(priority = 1, groups = {"wso2.esb"}, description = "nexmo {searchInboundNumbers} integration test with mandatory parameters.")
+    @Test(priority = 1, groups = {"wso2.esb"},
+            description = "nexmo {searchInboundNumbers} integration test with mandatory parameters.")
     public void testSearchInboundNumbersWithMandatoryParameters() throws IOException, JSONException {
 
         esbRequestHeadersMap.put("Action", "urn:searchInboundNumbers");
@@ -454,7 +456,8 @@ public class NexmoConnectorIntegrationTest extends ConnectorIntegrationTestBase 
     /**
      * Positive test case for searchInboundNumbers method with optional parameters.
      */
-    @Test(groups = {"wso2.esb"}, dependsOnMethods = {"testSearchInboundNumbersWithMandatoryParameters"}, description = "nexmo {searchInboundNumbers} integration test with optional parameters.")
+    @Test(groups = {"wso2.esb"}, dependsOnMethods = {"testSearchInboundNumbersWithMandatoryParameters"},
+            description = "nexmo {searchInboundNumbers} integration test with optional parameters.")
     public void testSearchInboundNumbersWithOptionalParameters() throws IOException, JSONException {
 
         esbRequestHeadersMap.put("Action", "urn:searchInboundNumbers");
@@ -478,7 +481,8 @@ public class NexmoConnectorIntegrationTest extends ConnectorIntegrationTestBase 
     /**
      * Negative test case for searchInboundNumbers method.
      */
-    @Test(groups = {"wso2.esb"}, dependsOnMethods = {"testSearchInboundNumbersWithOptionalParameters"}, description = "nexmo {searchInboundNumbers} integration test with negative cases.")
+    @Test(groups = {"wso2.esb"}, dependsOnMethods = {"testSearchInboundNumbersWithOptionalParameters"},
+            description = "nexmo {searchInboundNumbers} integration test with negative cases.")
     public void testSearchInboundNumbersWithNegativeCase() throws IOException, JSONException {
 
         esbRequestHeadersMap.put("Action", "urn:searchInboundNumbers");
@@ -500,7 +504,8 @@ public class NexmoConnectorIntegrationTest extends ConnectorIntegrationTestBase 
     /**
      * Positive test case for searchRejectedMessages method with mandatory parameters.
      */
-    @Test(groups = {"wso2.esb"}, dependsOnMethods = {"testSearchMessagesWithMandatoryParameters"}, description = "nexmo {searchRejectedMessages} integration test with mandatory parameters.")
+    @Test(groups = {"wso2.esb"}, dependsOnMethods = {"testSearchMessagesWithMandatoryParameters"},
+            description = "nexmo {searchRejectedMessages} integration test with mandatory parameters.")
     public void testSearchRejectedMessagesWithMandatoryParameters() throws IOException, JSONException {
 
         esbRequestHeadersMap.put("Action", "urn:searchRejectedMessages");
@@ -525,7 +530,8 @@ public class NexmoConnectorIntegrationTest extends ConnectorIntegrationTestBase 
     /**
      * Positive test case for searchRejectedMessages method with optional parameters.
      */
-    @Test(groups = {"wso2.esb"}, dependsOnMethods = {"testSearchRejectedMessagesWithMandatoryParameters"}, description = "nexmo {searchRejectedMessages} integration test with optional parameters.")
+    @Test(groups = {"wso2.esb"}, dependsOnMethods = {"testSearchRejectedMessagesWithMandatoryParameters"},
+            description = "nexmo {searchRejectedMessages} integration test with optional parameters.")
     public void testSearchRejectedMessagesWithOptionalParameters() throws IOException, JSONException,
             InterruptedException {
 
@@ -553,7 +559,8 @@ public class NexmoConnectorIntegrationTest extends ConnectorIntegrationTestBase 
     /**
      * Negative test case for searchRejectedMessages method.
      */
-    @Test(groups = {"wso2.esb"}, dependsOnMethods = {"testSearchRejectedMessagesWithOptionalParameters"}, description = "nexmo {searchRejectedMessages} integration test with negative cases.")
+    @Test(groups = {"wso2.esb"}, dependsOnMethods = {"testSearchRejectedMessagesWithOptionalParameters"},
+            description = "nexmo {searchRejectedMessages} integration test with negative cases.")
     public void testSearchRejectedMessagesWithNegativeCase() throws IOException, JSONException {
 
         esbRequestHeadersMap.put("Action", "urn:searchRejectedMessages");
@@ -573,5 +580,4 @@ public class NexmoConnectorIntegrationTest extends ConnectorIntegrationTestBase 
         Assert.assertEquals(esbRestResponse.getBody().getString("error-code-label"), apiRestResponse.getBody()
                 .getString("error-code-label"));
     }
-
 }

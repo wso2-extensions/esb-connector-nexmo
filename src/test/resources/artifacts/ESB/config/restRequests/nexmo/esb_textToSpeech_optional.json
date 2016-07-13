@@ -1,5 +1,5 @@
 {
-  "apiUrl": "%s(apiUrl)",
+  "apiUrl": "%s(apiUrlTTS)",
   "apiKey": "%s(apiKey)",
   "apiSecret": "%s(apiSecret)",
   "to": "%s(recipientPhoneNumber)",
@@ -8,4 +8,3 @@
   "repeat": "2",
   "responseType": "json"
 }
-

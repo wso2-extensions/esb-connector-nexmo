@@ -1,9 +1,9 @@
 {
-  "apiUrl": "%s(apiUrl)",
+  "apiUrl": "%s(apiUrlTTS)",
   "apiKey": "%s(apiKey)",
   "apiSecret": "%s(apiSecret)",
   "to": "",
-  "text": "%s(message)",
+  "text": "",
   "responseType": "json"
 }
 

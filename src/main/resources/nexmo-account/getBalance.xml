@@ -29,7 +29,7 @@
         </filter>
         <call>
             <endpoint>
-                <http method="get" uri-template="{uri.var.apiUrl}/account/get-balance{uri.var.authParams}"/>
+                <http method="get" uri-template="legacy-encoding:{uri.var.apiUrl}/account/get-balance{uri.var.authParams}"/>
             </endpoint>
         </call>
         <!-- Remove custom header information in response -->
