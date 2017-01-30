@@ -316,11 +316,10 @@ public class NexmoConnectorIntegrationTest extends ConnectorIntegrationTestBase 
                         + connectorProperties.getProperty("invalidPhoneNumber");
 
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
-
-        Assert.assertEquals(esbRestResponse.getBody().getString("error-code"),
-                apiRestResponse.getBody().getString("error-code"));
-        Assert.assertEquals(esbRestResponse.getBody().getString("error-code-label"), apiRestResponse.getBody()
-                .getString("error-code-label"));
+        Assert.assertEquals(esbRestResponse.getBody().getInt("count"), 0);
+        Assert.assertEquals(apiRestResponse.getBody().getInt("count"), 0);
+        Assert.assertEquals(esbRestResponse.getBody().getJSONArray("items").length(),
+                apiRestResponse.getBody().getJSONArray("items").length());
     }
 
     /**
@@ -335,6 +334,7 @@ public class NexmoConnectorIntegrationTest extends ConnectorIntegrationTestBase 
                 sendJsonRestRequest(proxyUrl, "POST", esbRequestHeadersMap, "esb_textToSpeech_mandatory.json");
 
         Assert.assertEquals(esbRestResponse.getBody().getInt("status"), 0);
+        Assert.assertEquals(esbRestResponse.getBody().getString("error_text"), "Success");
         Assert.assertEquals(esbRestResponse.getBody().getString("to"),
                 connectorProperties.getProperty("recipientPhoneNumber"));
     }
@@ -497,8 +497,8 @@ public class NexmoConnectorIntegrationTest extends ConnectorIntegrationTestBase 
 
         RestResponse<JSONObject> apiRestResponse = sendJsonRestRequest(apiEndPoint, "GET", apiRequestHeadersMap);
 
-        Assert.assertEquals(esbRestResponse.getHttpStatusCode(), 420);
-        Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 420);
+        Assert.assertEquals(esbRestResponse.getBody().length(), 0);
+        Assert.assertEquals(apiRestResponse.getBody().length(), 0);
     }
 
     /**
