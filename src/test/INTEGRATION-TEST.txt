@@ -10,12 +10,12 @@ Pre-requisites:
 Tested Platform: 
 
  - Microsoft WINDOWS V-7
- - UBUNTU 14.04, Mac OSx 10.9
- - WSO2 ESB 4.9.0, ESB 5.0.0-BETA
+ - UBUNTU 16.04, Mac OSx 10.9
+ - WSO2 ESB 4.9.0, ESB 5.0.0
 
 Steps to follow in setting integration test.
 
- 1. Download ESB 5.0.0-BETA from official website. Extract the ESB and put "-XX:-UseSplitVerifier" under $JVM_MEM_OPTS into {ESB_HOME}/bin/wso2server.sh.
+ 1. Download ESB 5.0.0 from official website. Extract the ESB and put "-XX:-UseSplitVerifier" under $JVM_MEM_OPTS into {ESB_HOME}/bin/wso2server.sh.
 
  2. Deploy relevant patches, if applicable and the ESB should be configured as below.
 	Please make sure that the below mentioned Axis configurations are enabled in "<ESB_HOME>/repository/conf/axis2/axis2.xml".
@@ -36,7 +36,7 @@ Steps to follow in setting integration test.
 
         i)   Extract the certificate from browser(Mozilla Firefox) by navigating to https://dashboard.nexmo.com/private/dashboard
 
-        ii)  Go to new ESB 5.0.0-BETA folder and place the downloaded certificate in "<ESB_HOME>/repository/resources/security/"
+        ii)  Go to new ESB 5.0.0 folder and place the downloaded certificate in "<ESB_HOME>/repository/resources/security/"
 
         iii) Navigate to "<ESB_HOME>/repository/resources/security/" using command prompt and execute keytool -importcert -file CERT_FILE_NAME -keystore client-truststore.jks -alias "CERT_NAME" in command line to import Nexmo certificate in to keystore.
      	     Give "wso2carbon" as password. Press "Y" to complete certificate import process.
