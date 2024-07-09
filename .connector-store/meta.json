@@ -4,7 +4,7 @@
     "category": "Communication",
     "documentationUrl": "https://docs.wso2.com/display/ESBCONNECTORS/Nexmo+Connector",
     "description": "The Nexmo connector allows you to access the Nexmo REST API through the WSO2 ESB. Nexmo connects apps directly to carriers around the world.",
-    "status": "Unsupported",
+    "status": "Active",
     "labels": [
         "connector"
     ],
